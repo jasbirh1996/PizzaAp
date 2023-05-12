@@ -43,6 +43,7 @@ class PizzaFragment : Fragment() {
                 is NetworkHandler.Success -> {
                     // success data is here
                     binding.data = it.data
+                    viewModel.pizzaData = it.data
 
                 }
                 is NetworkHandler.Error -> {
@@ -62,12 +63,15 @@ class PizzaFragment : Fragment() {
     }
 
     private fun customizePizza() {
-        CustomizePizzaDialog(requireContext(), object : AddToCartListener {
-            override fun addToCart() {
-                viewModel.getNavigator()?.switchFragment()
-            }
+        viewModel.pizzaData?.let {
+            CustomizePizzaDialog(requireContext(),it.crusts,it.defaultCrust, object : AddToCartListener {
+                override fun addToCart() {
+                    viewModel.getNavigator()?.switchFragment()
+                }
 
-        }).show()
+            }).show()
+        }
+
     }
 
 

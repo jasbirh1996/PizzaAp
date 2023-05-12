@@ -14,11 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class AppViewModel @Inject constructor(private val repo: AppRepository) : ViewModel() {
     lateinit var mNavigator: WeakReference<AppNavigator>
-     var pizzaLiveData = MutableLiveData<NetworkHandler<PizzaAppResponse>>()
+    var pizzaLiveData = MutableLiveData<NetworkHandler<PizzaAppResponse>>()
+    var pizzaData : PizzaAppResponse ? = null
 
 
-
-     fun getNavigator(): AppNavigator? {
+    fun getNavigator(): AppNavigator? {
         return mNavigator.get()
     }
 
