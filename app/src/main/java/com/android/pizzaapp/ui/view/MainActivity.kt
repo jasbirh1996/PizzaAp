@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.android.pizzaapp.R
@@ -24,26 +25,16 @@ class MainActivity : AppCompatActivity(),AppNavigator {
         setContentView(binding.root)
         viewModel.setNavigator(this)
         viewModel.invoke()
-        observer()
+        changeFragment(PizzaFragment())
 
 
     }
 
-    private fun observer(){
-      viewModel.pizzaLiveData.observe(this){
-          when(it){
-              is NetworkHandler.Success ->{
-                  // success data is here
-              }
-              is NetworkHandler.Error->{
-                  // error
-                  Log.e("error",it.exception.toString())
-
-
-              }
-          }
-      }
+    fun changeFragment(fragment : Fragment){
+        supportFragmentManager.beginTransaction().add(R.id.container,fragment).commit()
     }
+
+
 
 
 
