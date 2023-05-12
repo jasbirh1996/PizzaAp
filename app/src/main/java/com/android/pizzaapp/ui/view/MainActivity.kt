@@ -30,12 +30,14 @@ class MainActivity : AppCompatActivity(),AppNavigator {
 
     }
 
-    fun changeFragment(fragment : Fragment){
-        supportFragmentManager.beginTransaction().add(R.id.container,fragment).commit()
+  private  fun changeFragment(fragment : Fragment){
+        supportFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.container,fragment).commit()
     }
 
-
-
+    override fun switchFragment() {
+        changeFragment(PizzaCartFragment())
+        Log.d("fragment","PizzaCartFragment")
+    }
 
 
 }

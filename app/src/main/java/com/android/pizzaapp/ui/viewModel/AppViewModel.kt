@@ -18,7 +18,7 @@ class AppViewModel @Inject constructor(private val repo: AppRepository) : ViewMo
 
 
 
-    private fun getNavigator(): AppNavigator? {
+     fun getNavigator(): AppNavigator? {
         return mNavigator.get()
     }
 
