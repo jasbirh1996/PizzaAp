@@ -43,14 +43,7 @@ class CustomizePizzaDialog(
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
-        val window = window
-        val wlp = window!!.attributes
-        wlp.width = ViewGroup.LayoutParams.MATCH_PARENT
-        wlp.height = 800
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
+        initDialogView()
 
         crust.forEach {
             crustList.add(it.name)
@@ -58,11 +51,20 @@ class CustomizePizzaDialog(
 
         setupCrustSpinner(crustList)
 
-
         binding.button.setOnClickListener {
             listener.addToCart(selectedItem)
             dismiss()
         }
+
+    }
+    private fun initDialogView(){
+        val window = window
+        val wlp = window!!.attributes
+        wlp.width = ViewGroup.LayoutParams.MATCH_PARENT
+        wlp.height = 800
+        wlp.gravity = Gravity.BOTTOM
+        window.attributes = wlp
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
     }
 
@@ -132,7 +134,7 @@ class CustomizePizzaDialog(
            selectedItem  = SelectedItem(
                crustId = currentSelectedCrust.id,
                sizeId = currentSelectedSize.id,
-               quantity = null,
+               quantity = 1,
                crustName = currentSelectedCrust.name,
                size = currentSelectedSize.name,
                price = currentSelectedSize.price

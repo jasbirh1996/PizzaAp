@@ -4,16 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.pizzaapp.data.remote.model.PizzaAppResponse
+import com.android.pizzaapp.data.remote.model.SelectedItem
 import com.android.pizzaapp.databinding.FragmentPizzaBinding
 import com.android.pizzaapp.databinding.ItemCrustBinding
+import com.android.pizzaapp.util.RemoveItemFromCart
+import java.lang.ref.WeakReference
 
 class CartAdapter : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
 
-    private var crustList : ArrayList<PizzaAppResponse.Crust> =  arrayListOf()
+    private var selectedItemList : MutableList<SelectedItem> =  mutableListOf()
+    private  lateinit var listener : AdapterRemoveItemListener
     inner class MyViewHolder(var binding: ItemCrustBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun onBind(pos : Int){
-            binding.data = crustList.get(pos)
+            binding.data = selectedItemList?.get(pos)
+            binding.btRemoveCart.setOnClickListener {
+                listener.removeItem(selectedItemList?.get(pos),pos)
+            }
         }
 
     }
@@ -29,10 +36,21 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-      return crustList.size
+      return selectedItemList?.size!!
     }
 
-    fun setCrustList(list : ArrayList<PizzaAppResponse.Crust>){
-        this.crustList = list
+    fun setSelectedItemList(list : MutableList<SelectedItem>){
+        this.selectedItemList = list
     }
+    fun cartListener(mListener : AdapterRemoveItemListener){
+        this.listener = mListener
+    }
+
+
+    interface AdapterRemoveItemListener{
+        fun removeItem(selectedItem: SelectedItem?,pos : Int)
+    }
+
+
+
 }

@@ -5,9 +5,10 @@
       <map>
         <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/customize_pizza_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/dialog_remove_from_cart.xml" value="0.253125" />
         <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/fragment_pizza.xml" value="0.28892835997631733" />
         <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/fragment_pizza_cart.xml" value="0.25416666666666665" />
-        <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/item_crust.xml" value="0.253125" />
+        <entry key="..\:/AndroidProject2023/PizzaApp/app/src/main/res/layout/item_crust.xml" value="0.25473684210526315" />
       </map>
     </option>
   </component>

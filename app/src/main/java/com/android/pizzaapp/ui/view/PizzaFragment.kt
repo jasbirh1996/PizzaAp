@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PizzaFragment : Fragment() {
 
     private lateinit var binding: FragmentPizzaBinding
-    val viewModel: AppViewModel by activityViewModels()
+    val viewModel : AppViewModel by activityViewModels ()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,7 +67,7 @@ class PizzaFragment : Fragment() {
         viewModel.pizzaData?.let {
             CustomizePizzaDialog(requireContext(),it.crusts,it.defaultCrust, object : AddToCartListener {
                 override fun addToCart(selectedItem: SelectedItem?) {
-                    viewModel.selectedItem = selectedItem
+                    viewModel.getNavigator()?.selectedItemList(selectedItem)
                     viewModel.getNavigator()?.switchFragment()
                 }
 

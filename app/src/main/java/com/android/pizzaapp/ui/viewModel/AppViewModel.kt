@@ -1,5 +1,6 @@
 package com.android.pizzaapp.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,7 +18,9 @@ class AppViewModel @Inject constructor(private val repo: AppRepository) : ViewMo
     lateinit var mNavigator: WeakReference<AppNavigator>
     var pizzaLiveData = MutableLiveData<NetworkHandler<PizzaAppResponse>>()
     var pizzaData : PizzaAppResponse ? = null
-    var selectedItem : SelectedItem ? = null
+    var selectedItemList = mutableListOf<SelectedItem>()
+    var totalQuantity : Int =0
+    var totalPrice : Double = 0.0
 
 
     fun getNavigator(): AppNavigator? {
@@ -33,6 +36,12 @@ class AppViewModel @Inject constructor(private val repo: AppRepository) : ViewMo
         viewModelScope.launch {
             pizzaLiveData.postValue(repo.getPizzaData())
         }
+
+    }
+
+    fun invokeRemove(){
+        Log.e("buttonPressed","invoke")
+        getNavigator()?.invokeRemove()
 
     }
 
