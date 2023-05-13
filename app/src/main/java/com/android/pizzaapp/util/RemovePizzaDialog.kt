@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
@@ -36,8 +37,10 @@ class RemovePizzaDialog(
        }
         mAdapter.cartListener(object : CartAdapter.AdapterRemoveItemListener{
             override fun removeItem(selectedItem: SelectedItem?, pos: Int) {
+
+                Log.d("itemPosition",pos.toString())
                 listener.removeItem(selectedItem)
-                mAdapter.notifyItemChanged(pos)
+                mAdapter.notifyDataSetChanged()
             }
 
 

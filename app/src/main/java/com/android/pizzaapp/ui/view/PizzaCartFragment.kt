@@ -40,13 +40,14 @@ class PizzaCartFragment : Fragment() {
 
                     if (quantity <= 1) {
                         viewModel.selectedItemList.remove(item)
-                        viewModel.totalPrice = viewModel.totalPrice - price
+                        viewModel.totalPrice = if(viewModel.totalPrice - price <1) 0.0 else viewModel.totalPrice - price
+                        viewModel.totalQuantity = if(viewModel.totalQuantity <1) 0 else viewModel.totalQuantity -1
                         updateValue()
 
                     } else {
                         viewModel.selectedItemList.get(index).quantity = quantity - 1
-                        viewModel.totalPrice = viewModel.totalPrice - price
-                        viewModel.totalQuantity = viewModel.totalQuantity - quantity
+                        viewModel.totalPrice = if(viewModel.totalPrice - price <1) 0.0 else viewModel.totalPrice - price
+                        viewModel.totalQuantity = viewModel.totalQuantity - 1
                         updateValue()
 
                     }
@@ -61,10 +62,7 @@ class PizzaCartFragment : Fragment() {
     }
 
     private fun updateValue(){
-        binding.apply {
-            tvTotalQuantity.text = viewModel.totalQuantity.toString()
-            tvTotalPrice.text = viewModel.totalPrice.toString()
-        }
+        binding.data = viewModel
     }
 
 

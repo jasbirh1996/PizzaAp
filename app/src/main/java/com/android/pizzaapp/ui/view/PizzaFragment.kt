@@ -68,6 +68,7 @@ class PizzaFragment : Fragment() {
         viewModel.pizzaData?.let {
             CustomizePizzaDialog(requireContext(),it.crusts,it.defaultCrust, object : AddToCartListener {
                 override fun addToCart(selectedItem: SelectedItem?) {
+
                     viewModel.getNavigator()?.selectedItemList(selectedItem)
                     viewModel.getNavigator()?.switchFragment()
                 }

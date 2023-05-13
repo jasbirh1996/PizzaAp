@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), AppNavigator {
     }
 
     override fun selectedItemList(item: SelectedItem?) {
-
+        Log.d("selectedItem",item.toString())
         var commonPizzaItem =
             viewModel.selectedItemList?.find { it?.sizeId == item?.sizeId && it?.crustId == item?.crustId }
 
@@ -67,9 +67,14 @@ class MainActivity : AppCompatActivity(), AppNavigator {
         viewModel.totalQuantity = viewModel.selectedItemList.sumOf {
             it.quantity
         }
-        viewModel.selectedItemList.forEach {
-            viewModel.totalPrice += it.price
+        var data = 0.0
+        for ( i in viewModel.selectedItemList) {
+             data += i.price * i.quantity
+            viewModel.totalPrice = data
         }
+
+
+        Log.d("exsitingList",viewModel.selectedItemList.toString())
 
     }
 
