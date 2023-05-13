@@ -7,4 +7,5 @@ interface AppNavigator {
 
     fun switchFragment()
 
+
 }

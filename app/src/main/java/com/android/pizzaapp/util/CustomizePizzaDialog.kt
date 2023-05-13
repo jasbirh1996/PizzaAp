@@ -13,11 +13,16 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.android.pizzaapp.R
 import com.android.pizzaapp.data.remote.model.PizzaAppResponse
+import com.android.pizzaapp.data.remote.model.SelectedItem
 import com.android.pizzaapp.databinding.CustomizePizzaLayoutBinding
+import com.android.pizzaapp.ui.view.MainActivity
 import com.android.pizzaapp.ui.view.PizzaFragment
 import com.android.pizzaapp.ui.viewModel.AppViewModel
+import okhttp3.internal.notify
 import java.lang.ref.WeakReference
 
 
@@ -26,9 +31,13 @@ class CustomizePizzaDialog(
     var crust: List<PizzaAppResponse.Crust>,
     var defaultCrust : Int,
     private var listener: AddToCartListener
+
 ) : Dialog(context, R.style.Theme_Dialog) {
    private val binding = CustomizePizzaLayoutBinding.inflate(layoutInflater)
     var crustList = arrayListOf<String>()
+    private var selectedItem: SelectedItem? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -51,7 +60,7 @@ class CustomizePizzaDialog(
 
 
         binding.button.setOnClickListener {
-            listener.addToCart()
+            listener.addToCart(selectedItem)
             dismiss()
         }
 
@@ -89,7 +98,7 @@ class CustomizePizzaDialog(
                     sizeList.add(it.name)
                 }
                 val index = crust.get(position).sizes.indexOfFirst { it.id == crust.get(position).defaultSize }
-                setUpSizeSpinner(sizeList,index)
+                setUpSizeSpinner(sizeList,index,position)
 
             }
 
@@ -100,7 +109,7 @@ class CustomizePizzaDialog(
         }
     }
 
-    private fun setUpSizeSpinner(list: ArrayList<String>, defaultSize : Int) {
+    private fun setUpSizeSpinner(list: ArrayList<String>, defaultSize : Int,currentCrustPosition: Int) {
         val adapter = ArrayAdapter(
             context,
             android.R.layout.simple_spinner_item,
@@ -118,8 +127,23 @@ class CustomizePizzaDialog(
                 p3: Long
             ) {
                 // logic on selection
-                var data = parent?.getItemAtPosition(position) as String
-                Log.e("spinnerSize", data)
+                var currentSelectedCrust = crust.get(currentCrustPosition)
+                var currentSelectedSize = crust.get(currentCrustPosition).sizes.get(position)
+           selectedItem  = SelectedItem(
+               crustId = currentSelectedCrust.id,
+               sizeId = currentSelectedSize.id,
+               quantity = null,
+               crustName = currentSelectedCrust.name,
+               size = currentSelectedSize.name,
+               price = currentSelectedSize.price
+
+           )
+                var price =  "₹ ${currentSelectedSize.price}"
+
+                binding.tvCost.text = price
+                binding.tvCost.invalidate()
+
+
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -128,8 +152,11 @@ class CustomizePizzaDialog(
 
         }
     }
+
+
+
 }
 
 interface AddToCartListener {
-    fun addToCart()
+    fun addToCart(selectedItem: SelectedItem?)
 }

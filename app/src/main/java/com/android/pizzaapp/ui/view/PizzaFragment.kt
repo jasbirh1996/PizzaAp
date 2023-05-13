@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.android.pizzaapp.R
 import com.android.pizzaapp.data.remote.NetworkHandler
+import com.android.pizzaapp.data.remote.model.SelectedItem
 import com.android.pizzaapp.databinding.FragmentPizzaBinding
 import com.android.pizzaapp.ui.viewModel.AppNavigator
 import com.android.pizzaapp.ui.viewModel.AppViewModel
@@ -65,9 +66,11 @@ class PizzaFragment : Fragment() {
     private fun customizePizza() {
         viewModel.pizzaData?.let {
             CustomizePizzaDialog(requireContext(),it.crusts,it.defaultCrust, object : AddToCartListener {
-                override fun addToCart() {
+                override fun addToCart(selectedItem: SelectedItem?) {
+                    viewModel.selectedItem = selectedItem
                     viewModel.getNavigator()?.switchFragment()
                 }
+
 
             }).show()
         }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.pizzaapp.data.remote.NetworkHandler
 import com.android.pizzaapp.data.remote.model.PizzaAppResponse
+import com.android.pizzaapp.data.remote.model.SelectedItem
 import com.android.pizzaapp.data.repository.AppRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ class AppViewModel @Inject constructor(private val repo: AppRepository) : ViewMo
     lateinit var mNavigator: WeakReference<AppNavigator>
     var pizzaLiveData = MutableLiveData<NetworkHandler<PizzaAppResponse>>()
     var pizzaData : PizzaAppResponse ? = null
+    var selectedItem : SelectedItem ? = null
 
 
     fun getNavigator(): AppNavigator? {

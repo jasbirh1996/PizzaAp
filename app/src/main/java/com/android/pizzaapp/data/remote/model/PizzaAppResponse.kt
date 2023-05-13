@@ -11,7 +11,7 @@ data class PizzaAppResponse(
     data class Size(
         val id: Int,
         val name: String,
-        val price: Int
+        val price: Double
     )
 
     data class Crust(
