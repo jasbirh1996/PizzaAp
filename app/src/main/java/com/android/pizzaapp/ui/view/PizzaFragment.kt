@@ -43,6 +43,7 @@ class PizzaFragment : Fragment() {
             when (it) {
                 is NetworkHandler.Success -> {
                     // success data is here
+                    Log.d("status","success")
                     binding.data = it.data
                     viewModel.pizzaData = it.data
 

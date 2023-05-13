@@ -39,11 +39,7 @@ class AppViewModel @Inject constructor(private val repo: AppRepository) : ViewMo
 
     }
 
-    fun invokeRemove(){
-        Log.e("buttonPressed","invoke")
-        getNavigator()?.invokeRemove()
 
-    }
 
 
 }

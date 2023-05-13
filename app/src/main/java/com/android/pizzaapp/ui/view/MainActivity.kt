@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity(), AppNavigator {
         viewModel.setNavigator(this)
         viewModel.invoke()
         changeFragment(PizzaFragment())
+        binding.ivBack.setOnClickListener {
+            ActivityCompat.finishAfterTransition(this)
+        }
 
 
     }
@@ -58,29 +62,20 @@ class MainActivity : AppCompatActivity(), AppNavigator {
             item?.let {
                 viewModel.selectedItemList.add(item)
             }
-
-            Log.e("selectedList", viewModel.selectedItemList.toString())
         }
 
         viewModel.totalQuantity = viewModel.selectedItemList.sumOf {
             it.quantity
         }
         viewModel.selectedItemList.forEach {
-           viewModel.totalPrice += it.price
+            viewModel.totalPrice += it.price
         }
 
     }
 
-    override fun invokeRemove() {
-        RemovePizzaDialog(this, viewModel.selectedItemList, object : RemoveItemFromCart {
-            override fun removeItem(item: SelectedItem?) {
-                Log.d("removedItem", item.toString())
-                viewModel.selectedItemList?.remove(item)
-            }
 
-        }).show()
 
-    }
+
 
 
 }

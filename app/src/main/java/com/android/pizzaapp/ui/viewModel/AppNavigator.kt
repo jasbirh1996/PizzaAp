@@ -8,7 +8,6 @@ interface AppNavigator {
 
     fun switchFragment()
     fun selectedItemList(item : SelectedItem?)
-    fun invokeRemove()
 
 
 }
